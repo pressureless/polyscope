@@ -75,6 +75,7 @@ Polyscope is designed to make your life easier. It is simple to build, and fewer
 
 ---
 Author: [Nicholas Sharp](http://www.nmwsharp.com)
+
 Forked by: [Nicole Feng](https://nzfeng.github.io/)
 
 If Polyscope contributes to an academic publication, cite it as:

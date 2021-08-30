@@ -6,6 +6,7 @@ This is a fork of [Polyscope](https://github.com/nmwsharp/polyscope) for the Dis
 
 ---
 Author: [Nicholas Sharp](http://www.nmwsharp.com)
+
 Forked by: [Nicole Feng](https://nzfeng.github.io/)
 
 If Polyscope contributes to an academic publication, cite it as:

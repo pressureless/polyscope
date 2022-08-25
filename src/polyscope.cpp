@@ -323,61 +323,62 @@ void processInputEvents() {
           std::pair<Structure*, size_t> pickResult =
               pick::evaluatePickQuery(io.DisplayFramebufferScale.x * p.x, io.DisplayFramebufferScale.y * p.y);
           pick::setSelection(pickResult);
-        }
 
-        // CHANGED: for DDG
-        if (pickResult.first != nullptr) {
-          if (pickResult.second < state::facePickIndStart) {
-            size_t idx = pickResult.second;
-            if (io.KeyShift) {
-              state::subset.vertices.erase(idx);
-              state::deleteVertexIndex = idx;
-              state::currVertexIndex = -1;
-              state::currFaceIndex = -1;
-              state::currEdgeIndex = -1;
-            } else {
-              state::subset.vertices.insert(idx);
-              state::currVertexIndex = idx;
-              state::currFaceIndex = -1;
-              state::currEdgeIndex = -1;
+          // CHANGED: for DDG
+          if (pickResult.first != nullptr) {
+            if (pickResult.second < state::facePickIndStart) {
+              size_t idx = pickResult.second;
+              if (io.KeyShift) {
+                state::subset.vertices.erase(idx);
+                state::deleteVertexIndex = idx;
+                state::currVertexIndex = -1;
+                state::currFaceIndex = -1;
+                state::currEdgeIndex = -1;
+              } else {
+                state::subset.vertices.insert(idx);
+                state::currVertexIndex = idx;
+                state::currFaceIndex = -1;
+                state::currEdgeIndex = -1;
+              }
+            } else if (pickResult.second < state::edgePickIndStart) {
+              size_t idx = pickResult.second - state::facePickIndStart;
+              if (io.KeyShift) {
+                state::subset.faces.erase(idx);
+                state::deleteFaceIndex = idx;
+                state::currVertexIndex = -1;
+                state::currFaceIndex = -1;
+                state::currEdgeIndex = -1;
+              } else {
+                state::subset.faces.insert(idx);
+                state::currFaceIndex = idx;
+                state::currVertexIndex = -1;
+                state::currEdgeIndex = -1;
+              }
+            } else if (pickResult.second < state::halfedgePickIndStart) {
+              size_t idx = pickResult.second - state::edgePickIndStart;
+              std::set<size_t>::iterator it = state::subset.edges.find(idx);
+              if (io.KeyShift) {
+                state::subset.edges.erase(idx);
+                state::deleteEdgeIndex = idx;
+                state::currVertexIndex = -1;
+                state::currFaceIndex = -1;
+                state::currEdgeIndex = -1;
+              } else {
+                state::subset.edges.insert(idx);
+                state::currEdgeIndex = idx;
+                state::currVertexIndex = -1;
+                state::currFaceIndex = -1;
+              }
             }
-          } else if (pickResult.second < state::edgePickIndStart) {
-            size_t idx = pickResult.second - state::facePickIndStart;
-            if (io.KeyShift) {
-              state::subset.faces.erase(idx);
-              state::deleteFaceIndex = idx;
-              state::currVertexIndex = -1;
-              state::currFaceIndex = -1;
-              state::currEdgeIndex = -1;
-            } else {
-              state::subset.faces.insert(idx);
-              state::currFaceIndex = idx;
-              state::currVertexIndex = -1;
-              state::currEdgeIndex = -1;
-            }
-          } else if (pickResult.second < state::halfedgePickIndStart) {
-            size_t idx = pickResult.second - state::edgePickIndStart;
-            std::set<size_t>::iterator it = state::subset.edges.find(idx);
-            if (io.KeyShift) {
-              state::subset.edges.erase(idx);
-              state::deleteEdgeIndex = idx;
-              state::currVertexIndex = -1;
-              state::currFaceIndex = -1;
-              state::currEdgeIndex = -1;
-            } else {
-              state::subset.edges.insert(idx);
-              state::currEdgeIndex = idx;
-              state::currVertexIndex = -1;
-              state::currFaceIndex = -1;
-            }
+            showSelected();
+            requestRedraw();
           }
-          showSelected();
-          requestRedraw();
         } else {
           state::currVertexIndex = -1;
           state::currFaceIndex = -1;
           state::currEdgeIndex = -1;
         }
+
 
         // Reset the drag distance after any release
         dragDistSinceLastRelease = 0.0;

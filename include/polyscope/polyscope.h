@@ -17,6 +17,9 @@
 #include <set>
 #include <unordered_set>
 
+// CHANGED: for DDG assignments
+#include "../../../core/include/mesh_subset.h"
+#include "../../../utils/include/setup.h"
 
 namespace polyscope {
 

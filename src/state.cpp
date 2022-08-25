@@ -18,5 +18,17 @@ bool doDefaultMouseInteraction = true;
 std::set<Widget*> widgets;
 std::vector<SlicePlane*> slicePlanes;
 
+// CHANGED: for DDG
+size_t facePickIndStart;
+size_t edgePickIndStart;
+size_t halfedgePickIndStart;
+MeshSubset subset;
+int currVertexIndex = -1;
+int currFaceIndex = -1;
+int currEdgeIndex = -1;
+int deleteVertexIndex = -1;
+int deleteFaceIndex = -1;
+int deleteEdgeIndex = -1;
+
 } // namespace state
 } // namespace polyscope

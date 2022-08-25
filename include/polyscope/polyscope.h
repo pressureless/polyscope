@@ -1,16 +1,16 @@
 // Copyright 2017-2019, Nicholas Sharp and the Polyscope contributors. http://polyscope.run.
 #pragma once
 
+#include "imgui.h"
 #include "polyscope/internal.h"
 #include "polyscope/messages.h"
 #include "polyscope/options.h"
 #include "polyscope/screenshot.h"
 #include "polyscope/slice_plane.h"
 #include "polyscope/structure.h"
+#include "polyscope/transformation_gizmo.h"
 #include "polyscope/utilities.h"
 #include "polyscope/widget.h"
-#include "polyscope/transformation_gizmo.h"
-#include "imgui.h"
 
 #include <functional>
 #include <map>
@@ -57,7 +57,7 @@ extern std::tuple<glm::vec3, glm::vec3> boundingBox;
 extern std::set<Widget*> widgets;
 extern std::vector<SlicePlane*> slicePlanes;
 
-// should we allow default trackball mouse camera interaction? 
+// should we allow default trackball mouse camera interaction?
 // Needs more interactions on when to turn this on/off
 extern bool doDefaultMouseInteraction;
 
@@ -65,10 +65,20 @@ extern bool doDefaultMouseInteraction;
 extern std::function<void()> userCallback;
 
 
-
-
 // representative center for all registered structures
 glm::vec3 center();
+
+// CHANGED: for DDG, to keep track of selected elements
+extern size_t facePickIndStart;
+extern size_t edgePickIndStart;
+extern size_t halfedgePickIndStart;
+extern MeshSubset subset;
+extern int currVertexIndex;
+extern int currFaceIndex;
+extern int currEdgeIndex;
+extern int deleteVertexIndex;
+extern int deleteFaceIndex;
+extern int deleteEdgeIndex;
 
 } // namespace state
 

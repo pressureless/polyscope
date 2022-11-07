@@ -22,7 +22,7 @@ std::vector<SlicePlane*> slicePlanes;
 size_t facePickIndStart;
 size_t edgePickIndStart;
 size_t halfedgePickIndStart;
-MeshSubset subset;
+SimplexSubset subset;
 int currVertexIndex = -1;
 int currFaceIndex = -1;
 int currEdgeIndex = -1;

@@ -18,7 +18,7 @@
 #include <unordered_set>
 
 // CHANGED: for DDG assignments
-#include "../../../core/include/mesh_subset.h"
+#include "../../../include/simplex_subset.h"
 #include "../../../utils/include/setup.h"
 
 namespace polyscope {
@@ -75,7 +75,7 @@ glm::vec3 center();
 extern size_t facePickIndStart;
 extern size_t edgePickIndStart;
 extern size_t halfedgePickIndStart;
-extern MeshSubset subset;
+extern SimplexSubset subset;
 extern int currVertexIndex;
 extern int currFaceIndex;
 extern int currEdgeIndex;

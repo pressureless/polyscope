@@ -324,7 +324,7 @@ void processInputEvents() {
               pick::evaluatePickQuery(io.DisplayFramebufferScale.x * p.x, io.DisplayFramebufferScale.y * p.y);
           pick::setSelection(pickResult);
 
-          // CHANGED: for DDG
+          // CHANGED: for DDG 
           if (pickResult.first != nullptr) {
             if (pickResult.second < state::facePickIndStart) {
               size_t idx = pickResult.second;
@@ -355,7 +355,11 @@ void processInputEvents() {
                 state::currEdgeIndex = -1;
               }
             } else if (pickResult.second < state::halfedgePickIndStart) {
+              std::vector<size_t> mapping = getMapping();
               size_t idx = pickResult.second - state::edgePickIndStart;
+              std::cout<<"idx is:"<<idx<<std::endl;
+              idx = mapping[idx];
+              std::cout<<"idx is:"<<idx<<std::endl;
               std::set<size_t>::iterator it = state::subset.edges.find(idx);
               if (io.KeyShift) {
                 state::subset.edges.erase(idx);

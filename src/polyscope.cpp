@@ -327,7 +327,7 @@ void processInputEvents() {
           // CHANGED: for DDG 
           if (pickResult.first != nullptr) {
             if (pickResult.second < state::facePickIndStart) {
-              size_t idx = pickResult.second;
+              int idx = pickResult.second;
               if (io.KeyShift) {
                 state::subset.vertices.erase(idx);
                 state::deleteVertexIndex = idx;
@@ -341,7 +341,7 @@ void processInputEvents() {
                 state::currEdgeIndex = -1;
               }
             } else if (pickResult.second < state::edgePickIndStart) {
-              size_t idx = pickResult.second - state::facePickIndStart;
+              int idx = pickResult.second - state::facePickIndStart;
               if (io.KeyShift) {
                 state::subset.faces.erase(idx);
                 state::deleteFaceIndex = idx;
@@ -355,12 +355,12 @@ void processInputEvents() {
                 state::currEdgeIndex = -1;
               }
             } else if (pickResult.second < state::halfedgePickIndStart) {
-              std::vector<size_t> mapping = getMapping();
-              size_t idx = pickResult.second - state::edgePickIndStart;
+              std::vector<int> mapping = getMapping();
+              int idx = pickResult.second - state::edgePickIndStart;
               std::cout<<"idx is:"<<idx<<std::endl;
               idx = mapping[idx];
               std::cout<<"idx is:"<<idx<<std::endl;
-              std::set<size_t>::iterator it = state::subset.edges.find(idx);
+              std::set<int>::iterator it = state::subset.edges.find(idx);
               if (io.KeyShift) {
                 state::subset.edges.erase(idx);
                 state::deleteEdgeIndex = idx;
